@@ -50,7 +50,7 @@ class BUTTON(object):
             InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about'),
             InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close')
         ],
-            [InlineKeyboardButton("📢 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ", url=f'https://t.me/{Telegram.UPDATES_CHANNEL}')]
+            [InlineKeyboardButton("🌐 ᴡᴇʙꜱɪᴛᴇ ʟɪɴᴋ", url=f'https://mysticmovies.rf.gd')]
         ]
     )
     HELP_BUTTONS = InlineKeyboardMarkup(
@@ -59,7 +59,7 @@ class BUTTON(object):
             InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about'),
             InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
         ],
-            [InlineKeyboardButton("📢 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ", url=f'https://t.me/{Telegram.UPDATES_CHANNEL}')]
+            [InlineKeyboardButton("🌐 ᴡᴇʙꜱɪᴛᴇ ʟɪɴᴋ", url=f'https://mysticmovies.rf.gd')]
         ]
     )
     ABOUT_BUTTONS = InlineKeyboardMarkup(
@@ -68,6 +68,6 @@ class BUTTON(object):
             InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help'),
             InlineKeyboardButton('ᴄʟᴏsᴇ', callback_data='close'),
         ],
-            [InlineKeyboardButton("📢 ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ", url=f'https://t.me/{Telegram.UPDATES_CHANNEL}')]
+            [InlineKeyboardButton("🌐 ᴡᴇʙꜱɪᴛᴇ ʟɪɴᴋ", url=f'https://mysticmovies.rf.gd')]
         ]
     )
