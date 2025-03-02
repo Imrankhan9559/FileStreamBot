@@ -84,7 +84,6 @@ async def gen_link(_id):
     file_name = file_info['file_name']
     file_size = humanbytes(file_info['file_size'])
     mime_type = file_info['mime_type']
-    file_id = file_id['ObjectId']
 
     page_link = f"{Server.URL}watch/{_id}"
     stream_link = f"{Server.URL}dl/{_id}"
