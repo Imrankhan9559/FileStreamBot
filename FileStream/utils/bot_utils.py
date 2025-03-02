@@ -96,7 +96,6 @@ async def gen_link(_id):
                 [InlineKeyboardButton("sᴛʀᴇᴀᴍ", url=page_link), InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ", url=stream_link)],
                 [InlineKeyboardButton("ɢᴇᴛ ғɪʟᴇ", url=file_link), InlineKeyboardButton("ʀᴇᴠᴏᴋᴇ ғɪʟᴇ", callback_data=f"msgdelpvt_{_id}")],
                 [InlineKeyboardButton("ᴄʟᴏsᴇ", callback_data="close")]
-                [InlineKeyboardButton("ᴄᴏᴘʏ ID", callback_data=f"copy_id_{_id}")]
             ]
         )
     else:
