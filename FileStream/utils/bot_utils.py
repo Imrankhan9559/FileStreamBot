@@ -89,6 +89,8 @@ async def gen_link(_id):
     stream_link = f"{Server.URL}dl/{_id}"
     file_link = f"https://t.me/{FileStream.username}?start=file_{_id}"
 
+    info_text = f"File ID: `{_id}`\nFile Name: `{file_name}`\nFile Size: `{file_size}`\n\n"
+
     if "video" in mime_type:
         stream_text = LANG.STREAM_TEXT.format(file_name, file_size, stream_link, page_link, file_link)
         reply_markup = InlineKeyboardMarkup(
