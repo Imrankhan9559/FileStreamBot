@@ -27,7 +27,6 @@ class LANG(object):
 <i><u>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !</u></i>\n
 <b>📂 Fɪʟᴇ ɴᴀᴍᴇ :</b> <b>{}</b>\n
 <b>📦 Fɪʟᴇ ꜱɪᴢᴇ :</b> <code>{}</code>\n
-<b>📦 Fɪʟᴇ Code :</b> <code>{}</code>\n
 <b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <code>{}</code>\n
 <b>🖥 Wᴀᴛᴄʜ :</b> <code>{}</code>\n
 <b>🔗 Sʜᴀʀᴇ :</b> <code>{}</code>\n"""
