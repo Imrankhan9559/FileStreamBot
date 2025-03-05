@@ -160,7 +160,7 @@ async def gen_file_menu(_id, file_list_no, update: CallbackQuery):
         date = datetime.datetime.fromtimestamp(TiMe)
     await update.edit_message_caption(
         caption="**File Name :** `{}`\n**File Code :** `<code>{}</code>`\n**File Size :** `{}`\n**File Type :** `{}`\n**Created On :** `{}`".format(myfile_info['file_name'],
-                                                                                                                 file_info['_id'],
+                                                                                                                    myfile_info['_id'],
                                                                                                                     humanbytes(int(myfile_info['file_size'])),
                                                                                                                     file_type,
                                                                                                                     TiMe if isinstance(TiMe,str) else date.date()),
