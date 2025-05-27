@@ -14,7 +14,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <style>
+        .audio-track-selector {
+            margin: 10px 0;
+            display: none;
+        }
+        .audio-track-selector select {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #2d3748;
+            color: white;
+            border: 1px solid #4a5568;
+        }
+        .audio-track-selector label {
+            margin-right: 10px;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,7 +42,6 @@
         </div>
         <div class="nryt">
             <a class="home-btn magnet" href="#main" onclick="toggleWidthnav(this)">HOME</a>
-
             <a href="#abtus" class="about-btn magnet" onclick="toggleWidthnav(this)">OTHERS</a>
         </div>
     </nav>
@@ -45,6 +60,10 @@
                     <h3 style="display: inline;"><span>ɪᴍᴩᴏʀᴛᴀɴᴛ ɴᴏᴛᴇ: </span></h3><br>
                     <p style="display: inline;" id="myDiv">Please allow up to 10 seconds for the video to load. If you skip sections, a brief 10-second loading delay may occur.</p><br>
                 </div>
+                <div class="audio-track-selector" id="audioTrackSelector">
+                    <label for="audioTrack">Audio Track:</label>
+                    <select id="audioTrack" onchange="changeAudioTrack(this.value)"></select>
+                </div>
                 <video id="player" class="player" src="{{file_url}}" type="video/mp4" playsinline controls
                     width="100%"></video>
                 <div class="player"></div>
@@ -58,20 +77,7 @@
                     <button class="magnet" onclick="streamDownload()">
                         <img style="height: 30px;" src="https://i.ibb.co/RjzYttX/dl.png" alt="">download video
                     </button>
-                    <!-- <button class="magnet" onclick="copyStreamLink()">
-                        <img src="https://i.ibb.co/CM4Y586/link.png" alt="Copy Link">copy link
-                    </button>
-                    <button class="magnet" onclick="vlc_player()">
-                        <img src="https://i.ibb.co/px6fQs1/vlc.png" alt="">watch in VLC PLAYER
-                    </button>
-                    <button class="magnet" onclick="mx_player()">
-                        <img src="https://i.ibb.co/41WvtQ3/mx.png" alt="">watch in MX PLAYER
-                    </button>
-                    <button class="magnet" onclick="n_player()">
-                        <img src="https://i.ibb.co/Hd2dS4t/nPlayer.png" alt="">watch in nPlayer
-                    </button> -->
                 </div>
-
             </div>
             <div class="abt">
                 <div class="about">
@@ -95,15 +101,6 @@
                                 <a class="magnet" href="https://telegram.me/mysticmovies_bot" target="_blank" rel="noopener noreferrer">
                                     <button>MYSTICMOVIES BOT</button>
                                 </a>
-                                <!-- <a class="magnet" href="https://t.me/FilmyPixel">
-                                    <button>FILMYPIXEL</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/PostersZone">
-                                    <button>POSTERS ZONE</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/EpitomeQuality">
-                                    <button>EPITOME QUALITY</button>
-                                </a> -->
                             </div>
                         </div>
 
@@ -121,7 +118,6 @@
             </div>
         </div>
         <footer>
-
             <center>
                 <div class="copyright">
                     <h5 class="text-center">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This Website is to provide free content for everyone</h5>
@@ -136,16 +132,70 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.155.0/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/automat/controlkit.js@master/bin/controlKit.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.js"></script>
+<script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
+<script src="https://proavipatil.github.io/data/fs/src/script.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const uncopyableElement = document.querySelector(".uncopyable");
 
-        uncopyableElement.addEventListener("selectstart", function (event) {
-            event.preventDefault();
+        if (uncopyableElement) {
+            uncopyableElement.addEventListener("selectstart", function (event) {
+                event.preventDefault();
+            });
+        }
+
+        // Initialize video player and check for audio tracks
+        const player = document.getElementById('player');
+        
+        player.addEventListener('loadedmetadata', function() {
+            // Check if the video has multiple audio tracks
+            if (player.audioTracks && player.audioTracks.length > 1) {
+                const audioTrackSelector = document.getElementById('audioTrackSelector');
+                const audioTrackSelect = document.getElementById('audioTrack');
+                
+                // Show the audio track selector
+                audioTrackSelector.style.display = 'block';
+                
+                // Clear any existing options
+                audioTrackSelect.innerHTML = '';
+                
+                // Add options for each audio track
+                for (let i = 0; i < player.audioTracks.length; i++) {
+                    const track = player.audioTracks[i];
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.text = track.language || track.label || `Track ${i + 1}`;
+                    if (track.enabled) {
+                        option.selected = true;
+                    }
+                    audioTrackSelect.appendChild(option);
+                }
+            }
         });
     });
+
+    function changeAudioTrack(trackIndex) {
+        const player = document.getElementById('player');
+        
+        // Disable all audio tracks first
+        for (let i = 0; i < player.audioTracks.length; i++) {
+            player.audioTracks[i].enabled = false;
+        }
+        
+        // Enable the selected audio track
+        player.audioTracks[trackIndex].enabled = true;
+    }
+
+    function streamDownload() {
+        const videoUrl = document.getElementById('player').src;
+        const a = document.createElement('a');
+        a.href = videoUrl;
+        a.download = '{{file_name}}' || 'video.mp4';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 </script>
-<script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
-<script src="https://proavipatil.github.io/data/fs/src/script.js"></script>
 
 </html>
