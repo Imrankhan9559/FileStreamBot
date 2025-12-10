@@ -69,10 +69,6 @@ def get_media_file_size(m):
 
 
 def get_name(media_msg: Message | FileId) -> str:
-    # --- FIX START: Initialize variable to avoid UnboundLocalError ---
-    file_name = None 
-    # --- FIX END ---
-
     if isinstance(media_msg, Message):
         media = get_media_from_message(media_msg)
         file_name = getattr(media, "file_name", "")
@@ -83,7 +79,7 @@ def get_name(media_msg: Message | FileId) -> str:
     if not file_name:
         if isinstance(media_msg, Message) and media_msg.media:
             media_type = media_msg.media.value
-        elif hasattr(media_msg, "file_type") and media_msg.file_type:
+        elif media_msg.file_type:
             media_type = media_msg.file_type.name.lower()
         else:
             media_type = "file"
@@ -144,3 +140,5 @@ async def send_file(client: Client, db_id, file_id: str, message):
             disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN, quote=True)
 
     return log_msg
+    # return await client.send_cached_media(Telegram.BIN_CHANNEL, file_id)
+
